@@ -9,9 +9,12 @@ RUN set -xe && \
     apt-get install -yqq php8.1-cli php8.1-common php8.1-xml \
     php8.1-sqlite3 php8.1-zip git
 
-# Create our working directory and docs directory
+# Create our working directory and docs directory,
+# Then configure git to consider directories safe
+# when repo directories owner permissions differ,
 # Then clone the required projects
 RUN mkdir /phpdoc /docs && \
+    git config --global safe.directory '*' && \
     git clone https://github.com/php/phd.git /phpdoc/phd && \
     git clone https://github.com/php/web-php.git /phpdoc/web-php && \
     git clone https://github.com/php/doc-base.git /phpdoc/doc-base
